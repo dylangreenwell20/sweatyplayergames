@@ -136,7 +136,7 @@ GameObject:
   - component: {fileID: 244779179}
   - component: {fileID: 244779178}
   m_Layer: 0
-  m_Name: Capsule
+  m_Name: PlayerModel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -457,6 +457,7 @@ GameObject:
   - component: {fileID: 1194333463}
   - component: {fileID: 1194333464}
   - component: {fileID: 1194333465}
+  - component: {fileID: 1194333466}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -510,8 +511,45 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2aa6151e935d01842ab20ddec7631664, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movementSpeed: 10
-  orientation: {fileID: 0}
+  walkSpeed: 7
+  sprintSpeed: 10
+  slideSpeed: 30
+  groundDrag: 5
+  jumpForce: 12
+  jumpCooldown: 0.25
+  airMultiplier: 0.4
+  crouchSpeed: 3.5
+  crouchYScale: 0.5
+  jumpKey: 32
+  sprintKey: 304
+  crouchKey: 306
+  playerHeight: 2
+  whatIsGround:
+    serializedVersion: 2
+    m_Bits: 64
+  isGrounded: 0
+  maxSlopeAngle: 40
+  orientation: {fileID: 515817050}
+  playerState: 0
+  sliding: 0
+--- !u!114 &1194333466
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1194333462}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c5827d5afe7bbd648aa640403d522a88, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  orientation: {fileID: 515817050}
+  playerObj: {fileID: 244779177}
+  maxSlideTime: 0.75
+  slideForce: 200
+  slideYScale: 0.5
+  slideKey: 306
 --- !u!1 &1500000504
 GameObject:
   m_ObjectHideFlags: 0
@@ -555,7 +593,7 @@ GameObject:
   - component: {fileID: 1901365011}
   - component: {fileID: 1901365010}
   - component: {fileID: 1901365009}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Plane
   m_TagString: Untagged
   m_Icon: {fileID: 0}
