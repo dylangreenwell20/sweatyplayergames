@@ -53,6 +53,7 @@ public class PlayerMovement : MonoBehaviour
     public MovementState playerState;
     public enum MovementState
     {
+        freeze,
         walking,
         sprinting,
         crouching,
@@ -60,6 +61,8 @@ public class PlayerMovement : MonoBehaviour
         inAir
     }
 
+    public bool freeze; //player is frozen bool
+    public bool activeGrapple; //active grapple bool
     public bool sliding;
 
     // Start is called before the first frame update
@@ -80,7 +83,7 @@ public class PlayerMovement : MonoBehaviour
         SpeedControl();
         StateHandler();
 
-        if (isGrounded)
+        if (isGrounded && !activeGrapple) //if player is on the ground and not currently grappling
         {
             rb.drag = groundDrag;
         }
@@ -124,7 +127,13 @@ public class PlayerMovement : MonoBehaviour
 
     private void StateHandler()
     {
-        if (sliding)
+        if (freeze) //if user is frozen
+        {
+            playerState = MovementState.freeze; //freeze movement state
+            movementSpeed = 0; //speed set to 0
+            rb.velocity = Vector3.zero; //velocity set to 0
+        }
+        else if (sliding)
         {
             playerState = MovementState.sliding;
 
@@ -188,6 +197,11 @@ public class PlayerMovement : MonoBehaviour
     }
     void MovePlayer()
     {
+        if (activeGrapple) //if player is actively grappling
+        {
+            return; //return with no movement
+        }
+
         moveDirection = orientation.forward * keyboardInput.y + orientation.right * keyboardInput.x;
 
         if (OnSlope() && !exitSlope)
@@ -222,6 +236,11 @@ public class PlayerMovement : MonoBehaviour
 
     void SpeedControl()
     {
+        if (activeGrapple) //if player is actively grappling
+        {
+            return; //return with no speed
+        }
+
         if (OnSlope() && !exitSlope)
         {
             if (rb.velocity.magnitude > movementSpeed)
@@ -240,6 +259,42 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+    private bool enableMovementOnNextTouch; //let player move after touching a surface after a grapple
+
+    public void JumpToPosition(Vector3 targetPosition, float trajectoryHeight)
+    {
+        activeGrapple = true; //player actively grappling
+
+        velocityToSet = CalculateJumpVelocity(transform.position, targetPosition, trajectoryHeight); //set velocity
+        Invoke(nameof(SetVelocity), 0.1f); //apply velocity after 0.1s
+
+        Invoke(nameof(ResetRestrictions), 3f); //reset movement restrictions after 3 seconds incase something goes wrong
+    }
+
+    private Vector3 velocityToSet; //velocity to set variable
+
+    private void SetVelocity()
+    {
+        enableMovementOnNextTouch = true; //let player move on next surface touch
+        rb.velocity = velocityToSet; //set velocity of rigid body to variable velocityToSet
+    }
+
+    public void ResetRestrictions()
+    {
+        activeGrapple = false; //set activeGrapple to false
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (enableMovementOnNextTouch) //if enableMovementOnNextTouch is true
+        {
+            enableMovementOnNextTouch = false; //set it to false
+            ResetRestrictions(); //run reset restrictions function
+
+            GetComponent<Grappling>().StopGrapple(); //stop grapple
+        }
+    }
+
     public bool OnSlope()
     {
         if (Physics.Raycast(transform.position, Vector3.down, out onSlope, playerHeight * 0.5f + 0.3f))
@@ -254,5 +309,17 @@ public class PlayerMovement : MonoBehaviour
     public Vector3 GetSlopeMoveDir(Vector3 dic)
     {
         return Vector3.ProjectOnPlane(dic, onSlope.normal).normalized;
+    }
+
+    public Vector3 CalculateJumpVelocity(Vector3 startPoint, Vector3 endPoint, float trajectoryHeight)
+    {
+        float gravity = Physics.gravity.y; //gravity float
+        float displacementY = endPoint.y - startPoint.y; //float for y displacement
+        Vector3 displacementXZ = new Vector3(endPoint.x - startPoint.x, 0f, endPoint.z - startPoint.z); //displacement of X and Z
+
+        Vector3 velocityY = Vector3.up * Mathf.Sqrt(-2 * gravity * trajectoryHeight); //Y velocity
+        Vector3 velocityXZ = displacementXZ / (Mathf.Sqrt(-2 * trajectoryHeight / gravity) + Mathf.Sqrt(2 * (displacementY - trajectoryHeight) / gravity)); //XZ velocity
+
+        return velocityXZ + velocityY; //return XZ and Y velocity values
     }
 }
