@@ -5,7 +5,6 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     [Header("Movement Options")]
-<<<<<<< HEAD
     private float movementSpeed;
     public float walkSpeed;
     public float sprintSpeed;
@@ -18,18 +17,12 @@ public class PlayerMovement : MonoBehaviour
     public float groundDrag;
 
     [Header("Jumping")]
-=======
-    public float movementSpeed;
-    public float groundDrag;
-
->>>>>>> 82ee45d2d32194b704634f44741f9d6eb88501ec
     public float jumpForce;
     public float jumpCooldown;
     public float airMultiplier;
 
     bool canJump = true;
 
-<<<<<<< HEAD
     [Header("Crouching")]
     public float crouchSpeed;
     public float crouchYScale;
@@ -39,24 +32,17 @@ public class PlayerMovement : MonoBehaviour
     public KeyCode jumpKey = KeyCode.Space;
     public KeyCode sprintKey = KeyCode.LeftShift;
     public KeyCode crouchKey = KeyCode.LeftControl;
-=======
-    [Header("Keybind")]
-    public KeyCode jumpKey = KeyCode.Space;
->>>>>>> 82ee45d2d32194b704634f44741f9d6eb88501ec
 
     [Header("Ground Check")]
     public float playerHeight;
     public LayerMask whatIsGround;
     public bool isGrounded;
 
-<<<<<<< HEAD
     [Header("Slope Handling")]
     public float maxSlopeAngle;
     private RaycastHit onSlope;
     private bool exitSlope;
 
-=======
->>>>>>> 82ee45d2d32194b704634f44741f9d6eb88501ec
     [Header("References")]
     public Transform orientation;
 
@@ -64,7 +50,6 @@ public class PlayerMovement : MonoBehaviour
     Rigidbody rb;
     Vector3 moveDirection;
 
-<<<<<<< HEAD
     public MovementState playerState;
     public enum MovementState
     {
@@ -77,18 +62,13 @@ public class PlayerMovement : MonoBehaviour
 
     public bool sliding;
 
-=======
->>>>>>> 82ee45d2d32194b704634f44741f9d6eb88501ec
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody>();
         rb.freezeRotation = true;
-<<<<<<< HEAD
 
         startYScale = transform.localScale.y;
-=======
->>>>>>> 82ee45d2d32194b704634f44741f9d6eb88501ec
     }
 
     // Update is called once per frame
@@ -98,10 +78,7 @@ public class PlayerMovement : MonoBehaviour
 
         GetInputs();
         SpeedControl();
-<<<<<<< HEAD
         StateHandler();
-=======
->>>>>>> 82ee45d2d32194b704634f44741f9d6eb88501ec
 
         if (isGrounded)
         {
@@ -129,7 +106,6 @@ public class PlayerMovement : MonoBehaviour
             Invoke(nameof(ResetJump), jumpCooldown);
         }
 
-<<<<<<< HEAD
         if (Input.GetKeyDown(crouchKey))
         {
             //change to Y Scale of the object, replace with model code
@@ -210,16 +186,10 @@ public class PlayerMovement : MonoBehaviour
 
         movementSpeed = desiredMoveSpeed;
     }
-=======
-        keyboardInput = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
-    }
-
->>>>>>> 82ee45d2d32194b704634f44741f9d6eb88501ec
     void MovePlayer()
     {
         moveDirection = orientation.forward * keyboardInput.y + orientation.right * keyboardInput.x;
 
-<<<<<<< HEAD
         if (OnSlope() && !exitSlope)
         {
             rb.AddForce(GetSlopeMoveDir(moveDirection) * movementSpeed * 20f, ForceMode.Force);
@@ -227,8 +197,6 @@ public class PlayerMovement : MonoBehaviour
             if (rb.velocity.y > 0)
                 rb.AddForce(Vector3.down * 80f, ForceMode.Force);
         }
-=======
->>>>>>> 82ee45d2d32194b704634f44741f9d6eb88501ec
         if (isGrounded)
         {
             rb.AddForce(moveDirection * movementSpeed * 10f, ForceMode.Force);
@@ -241,26 +209,19 @@ public class PlayerMovement : MonoBehaviour
 
     void Jump()
     {
-<<<<<<< HEAD
         exitSlope = true;
-=======
->>>>>>> 82ee45d2d32194b704634f44741f9d6eb88501ec
         rb.velocity = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
         rb.AddForce(transform.up * jumpForce, ForceMode.Impulse);
     }
 
     void ResetJump()
     {
-<<<<<<< HEAD
         exitSlope = false;
-=======
->>>>>>> 82ee45d2d32194b704634f44741f9d6eb88501ec
         canJump = true;
     }
 
     void SpeedControl()
     {
-<<<<<<< HEAD
         if (OnSlope() && !exitSlope)
         {
             if (rb.velocity.magnitude > movementSpeed)
@@ -293,14 +254,5 @@ public class PlayerMovement : MonoBehaviour
     public Vector3 GetSlopeMoveDir(Vector3 dic)
     {
         return Vector3.ProjectOnPlane(dic, onSlope.normal).normalized;
-=======
-        Vector3 flatVel = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
-
-        if (flatVel.magnitude > movementSpeed)
-        {
-            Vector3 limitedVel = flatVel.normalized * movementSpeed;
-            rb.velocity = new Vector3(limitedVel.x, rb.velocity.y, limitedVel.z);
-        }
->>>>>>> 82ee45d2d32194b704634f44741f9d6eb88501ec
     }
 }
