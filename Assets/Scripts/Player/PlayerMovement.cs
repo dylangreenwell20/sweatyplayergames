@@ -9,6 +9,7 @@ public class PlayerMovement : MonoBehaviour
     public float walkSpeed;
     public float sprintSpeed;
     public float slideSpeed;
+    public float wallRunSpeed;
 
     private float desiredMoveSpeed;
     private float lastDesiredMoveSpeed;
@@ -56,6 +57,7 @@ public class PlayerMovement : MonoBehaviour
         freeze,
         walking,
         sprinting,
+        wallrunning,
         crouching,
         sliding,
         inAir
@@ -64,6 +66,7 @@ public class PlayerMovement : MonoBehaviour
     public bool freeze; //player is frozen bool
     public bool activeGrapple; //active grapple bool
     public bool sliding;
+    public bool wallRunning; // Wall running bool
 
     // Start is called before the first frame update
     void Start()
@@ -127,6 +130,12 @@ public class PlayerMovement : MonoBehaviour
 
     private void StateHandler()
     {
+        if (wallRunning)
+        {
+            playerState = MovementState.wallrunning;
+            desiredMoveSpeed = wallRunSpeed;
+        }
+
         if (freeze) //if user is frozen
         {
             playerState = MovementState.freeze; //freeze movement state
