@@ -137,6 +137,7 @@ GameObject:
   - component: {fileID: 23559148}
   - component: {fileID: 23559149}
   - component: {fileID: 23559150}
+  - component: {fileID: 23559151}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -282,6 +283,31 @@ MonoBehaviour:
   minJumpHeight: 2
   exitWallTime: 0.2
   orientation: {fileID: 606693069}
+--- !u!114 &23559151
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 23559144}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b4e6ccb2e7495ea448a470921e0aae66, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  orientation: {fileID: 606693069}
+  whatIsWall:
+    serializedVersion: 2
+    m_Bits: 128
+  climbSpeed: 10
+  maxClimbTime: 0.75
+  upJumpForce: 14
+  backJumpForce: 12
+  climbJumps: 1
+  minWallNormalAngleChange: 5
+  detectionLength: 0.7
+  sphereCastRadius: 0.25
+  maxWallLookAngle: 30
 --- !u!1 &270551852
 GameObject:
   m_ObjectHideFlags: 0
@@ -715,7 +741,7 @@ CapsuleCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 555863510}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: 88c607227487be3409d1687f8ec7d987, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
   m_Radius: 0.5
@@ -1223,8 +1249,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 941759917}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -25.5, y: 2.31, z: 0.00000059605}
-  m_LocalScale: {x: 1, y: 6.240916, z: 45.720703}
+  m_LocalPosition: {x: -25.5, y: 7.53, z: 0.00000059605}
+  m_LocalScale: {x: 1, y: 16.408451, z: 45.720703}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1802247046}
