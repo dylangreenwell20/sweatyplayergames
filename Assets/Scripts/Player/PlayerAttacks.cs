@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class PlayerAttacks : MonoBehaviour
@@ -16,6 +17,8 @@ public class PlayerAttacks : MonoBehaviour
     public KeyCode attackKey = KeyCode.Mouse0;
     public KeyCode reloadKey = KeyCode.R;
     public LayerMask toAttack;
+
+    public TMP_Text ammoCounter;
 
     private float fireTimer;
     private int currentMag;
@@ -57,6 +60,7 @@ public class PlayerAttacks : MonoBehaviour
             ReloadWeapon();
         }
 
+        ammoCounter.text = currentMag.ToString("D2") + " / " + magSize.ToString("D2");
     }
 
     // Needs updating so not instant
