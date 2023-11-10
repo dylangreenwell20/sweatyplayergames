@@ -10,15 +10,19 @@ public class PlayerAttacks : MonoBehaviour
     public float weaponAttackRate;
     public float weaponDamage;
     public float weaponRange;
+    public int magSize;
 
     public bool isAutomatic;
     public KeyCode attackKey = KeyCode.Mouse0;
+    public KeyCode reloadKey = KeyCode.R;
     public LayerMask toAttack;
 
     private float fireTimer;
+    private int currentMag;
 
     private void Start()
     {
+        currentMag = magSize;
         fireTimer = 60 / weaponAttackRate;
     }
 
@@ -35,8 +39,7 @@ public class PlayerAttacks : MonoBehaviour
             {
                 fireTimer = 60 / weaponAttackRate;
                 FireWeapon();
-                
-            }       
+            }
         }
         // Script for when the weapon only should fire when the user clicks
         else if (Input.GetKeyDown(attackKey))
@@ -47,15 +50,44 @@ public class PlayerAttacks : MonoBehaviour
                 FireWeapon();
             }
         }
+
+        // Reloading the weapon when the player presses the reaload button
+        if (Input.GetKeyDown(reloadKey))
+        {
+            ReloadWeapon();
+        }
+
+    }
+
+    // Needs updating so not instant
+    private void ReloadWeapon()
+    {
+        currentMag = magSize;
     }
 
     // Code that actually fires the weapon
     private void FireWeapon()
     {
-        RaycastHit hit;
-        if (Physics.Raycast(transform.position, transform.forward, out hit, weaponRange, toAttack)) 
+        // Only firing when ammo > 0
+        if (currentMag > 0)
         {
-            
+            currentMag--;
+
+            // Hit enemies here
+            Debug.Log("Fire");
+
+            RaycastHit hit;
+            if (Physics.Raycast(transform.position, transform.forward, out hit, weaponRange, toAttack))
+            {
+
+
+            }
         }
+    }
+
+    // Get the current ammo left in mag
+    public int getMag()
+    {
+        return currentMag;
     }
 }
