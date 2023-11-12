@@ -23,6 +23,9 @@ public class PlayerAttacks : MonoBehaviour
     private float fireTimer;
     private int currentMag;
 
+    public EnemyAI enemyAI; //reference to enemy ai script
+    public Transform cam; //reference to player camera
+
     private void Start()
     {
         currentMag = magSize;
@@ -81,10 +84,15 @@ public class PlayerAttacks : MonoBehaviour
             Debug.Log("Fire");
 
             RaycastHit hit;
-            if (Physics.Raycast(transform.position, transform.forward, out hit, weaponRange, toAttack))
+
+            if (Physics.Raycast(cam.position, cam.forward, out hit, weaponRange, toAttack)) //if raycast hits an attackable enemy within weapon range
             {
-
-
+                hit.transform.gameObject.GetComponent<EnemyAI>().TakeDamage(weaponDamage); //make enemy take damage equal to weapon damage
+                Debug.Log("hit enemy"); //for testing if enemy was hit or not
+            }
+            else
+            {
+                Debug.Log("not hit enemy"); //for testing if enemy was hit or not
             }
         }
     }

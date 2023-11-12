@@ -51,6 +51,11 @@ public class PlayerMovement : MonoBehaviour
     Rigidbody rb;
     Vector3 moveDirection;
 
+    public LayerMask whatIsExit; //layer reference for level exit
+    public bool isOnExit; //if player is on exit
+    public DemoTimer dt; //reference to demo timer script
+
+
     public MovementState playerState;
     public enum MovementState
     {
@@ -81,6 +86,7 @@ public class PlayerMovement : MonoBehaviour
     void Update()
     {
         isGrounded = Physics.Raycast(transform.position, Vector3.down, playerHeight * 0.5f + 0.1f, whatIsGround);
+        isOnExit = Physics.Raycast(transform.position, Vector3.down, playerHeight * 0.5f + 0.1f, whatIsExit);
 
         GetInputs();
         SpeedControl();
@@ -93,6 +99,11 @@ public class PlayerMovement : MonoBehaviour
         else
         {
             rb.drag = 0;
+        }
+
+        if (isOnExit) //if player is touching the exit
+        {
+            dt.ExitTouched(); //this function sets the exitReached boolean to true which stops the timer
         }
     }
 

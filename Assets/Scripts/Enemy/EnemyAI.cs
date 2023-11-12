@@ -5,47 +5,56 @@ using UnityEngine.AI;
 
 public class EnemyAI : MonoBehaviour
 {
-    public NavMeshAgent nma; //nav mesh agent for the enemy
+    //public NavMeshAgent nma; //nav mesh agent for the enemy
     public Transform player; //player object (for enemy to attack)
     public LayerMask whatIsGround; //layer for what is the ground
     public LayerMask whatIsPlayer; //layer for what is the player
 
-    public Vector3 walkPoint; //variable for place the AI will walk to
-    public float walkPointRange; //range the AI can walk
-    bool walkPointSet; //is a walk point set
+    //public Vector3 walkPoint; //variable for place the AI will walk to
+    //public float walkPointRange; //range the AI can walk
+    //bool walkPointSet; //is a walk point set
 
     public float timeBetweenAttacks; //time between AI attacks
     bool hasAttacked; //has enemy attacked
-    public float sightRange; //range the enemy can see
+    //public float sightRange; //range the enemy can see
     public float attackRange; //range the enemy can attack
-    public bool playerInSightRange; //is player in sight range
+    //public bool playerInSightRange; //is player in sight range
     public bool playerInAttackRange; //is player in attack range
+
+    public float enemyHealth = 100;
+    public float enemyDamage = 10;
+    public bool isDead;
 
     private void Awake()
     {
         player = GameObject.Find("PlayerModel").transform;
-        nma = GetComponent<NavMeshAgent>();
+        //nma = GetComponent<NavMeshAgent>();
     }
 
     private void Update()
     {
-        playerInSightRange = Physics.CheckSphere(transform.position, sightRange, whatIsPlayer); //check if player is in sight range
+        //playerInSightRange = Physics.CheckSphere(transform.position, sightRange, whatIsPlayer); //check if player is in sight range
         playerInAttackRange = Physics.CheckSphere(transform.position, attackRange, whatIsPlayer); //check if player is in attack range
 
-        if(!playerInSightRange && !playerInAttackRange) //if player is not in sight or attack range
+        if(!playerInAttackRange) //if player is not in sight or attack range
         {
-            Patroling(); //patrol the area around the enemy
+            //Patroling(); //patrol the area around the enemy
+            //Debug.Log("not in attack range");
         }
+        /*
         else if(playerInSightRange && !playerInAttackRange) //if player is in sight range but not attack range
         {
             ChasePlayer(); //chase the player
         }
-        else if(playerInSightRange && playerInAttackRange) //if the player is in sight range and also in attack range
+        */
+        else if(playerInAttackRange) //if the player is in sight range and also in attack range
         {
             AttackPlayer(); //attack the player
+            //Debug.Log("in attack range");
         }
     }
 
+    /*
     private void Patroling()
     {
         if (!walkPointSet) //if no walk point has been set
@@ -65,6 +74,7 @@ public class EnemyAI : MonoBehaviour
             walkPointSet = false; //walk point set is false
         }
     }
+    
 
     private void SearchWalkPoint()
     {
@@ -83,9 +93,11 @@ public class EnemyAI : MonoBehaviour
         nma.SetDestination(player.position); //set destination to the player transform
     }
 
+    */
+
     private void AttackPlayer()
     {
-        nma.SetDestination(transform.position); //stop enemy moving by setting its move destination to under itself
+        //nma.SetDestination(transform.position); //stop enemy moving by setting its move destination to under itself
         transform.LookAt(player); //look at the player when attacking
 
         if (!hasAttacked)
@@ -103,5 +115,17 @@ public class EnemyAI : MonoBehaviour
     private void ResetAttack()
     {
         hasAttacked = false; //set boolean value to false to allow enemy to attack again
+    }
+
+    public void TakeDamage(float damage)
+    {
+        enemyHealth -= damage;
+
+        if(enemyHealth <= 0)
+        {
+            isDead = true;
+            enemyHealth = 0;
+            gameObject.SetActive(false);
+        }
     }
 }
