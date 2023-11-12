@@ -331,7 +331,7 @@ MonoBehaviour:
   toAttack:
     serializedVersion: 2
     m_Bits: 0
-  ammoCounter: {fileID: 0}
+  ammoCounter: {fileID: 6632112323252165856}
 --- !u!1 &53307264
 GameObject:
   m_ObjectHideFlags: 0
