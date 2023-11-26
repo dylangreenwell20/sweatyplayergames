@@ -24,7 +24,7 @@ public class PlayerCamera : MonoBehaviour
     void Update()
     {
         // Vector2 storing mouse movement in the x and y axis
-        Vector2 mouseMotion = new Vector2(Input.GetAxisRaw("Mouse X") * Time.deltaTime * xSens, Input.GetAxisRaw("Mouse Y") * Time.deltaTime * ySens);
+        Vector2 mouseMotion = new Vector2(Input.GetAxisRaw("Mouse X") * xSens, Input.GetAxisRaw("Mouse Y") * ySens);
 
         // Setting the rotation variables
         yRotation += mouseMotion.x;

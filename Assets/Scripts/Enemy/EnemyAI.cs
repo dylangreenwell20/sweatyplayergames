@@ -25,6 +25,8 @@ public class EnemyAI : MonoBehaviour
     public float enemyDamage = 10;
     public bool isDead;
 
+    public GameObject bulletPrefab;
+
     private void Awake()
     {
         player = GameObject.Find("PlayerModel").transform;
@@ -103,7 +105,8 @@ public class EnemyAI : MonoBehaviour
         if (!hasAttacked)
         {
             //attack code goes here --------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
+            GameObject tempBullet = Instantiate(bulletPrefab);
+            tempBullet.GetComponent<ProjectileMotion>().Create(transform, (player.position - transform.position).normalized, 200, 10, 1);
 
 
 
