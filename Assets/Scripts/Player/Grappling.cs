@@ -42,11 +42,13 @@ public class Grappling : MonoBehaviour
     public KeyCode grappleKey = KeyCode.Mouse1; //key to grapple
     public KeyCode swingKey = KeyCode.Mouse2; //key to swing
 
-    private bool grappling; //bool if user is grappling
+    public bool grappling; //bool if user is grappling
+    public bool cdActive; //bool if there is currently a grapple cooldown active
 
     private void Start()
     {
         pm = GetComponent<PlayerMovement>(); //get movement script
+        //lr = GetComponent<LineRenderer>(); //get line renderer - for some reason this makes the line renderer bug out
     }
 
     private void Update()
@@ -61,7 +63,13 @@ public class Grappling : MonoBehaviour
 
         if(grapplingCdTimer > 0) //is cooldown greater than 0
         {
+            cdActive = true; //grapple cooldown is currently active
             grapplingCdTimer -= Time.deltaTime; //start cooldown timer
+        }
+        
+        if(grapplingCdTimer <= 0) //if cooldown is less than or equal to 0
+        {
+            cdActive = false; //no grapple cooldown is currently active
         }
 
         if(Input.GetKeyDown(swingKey)) //if swing key pressed down
@@ -96,6 +104,19 @@ public class Grappling : MonoBehaviour
         }
     }
 
+    public bool CanGrapple()
+    {
+        RaycastHit hit; //create raycast hit variable
+        if (Physics.Raycast(cam.position, cam.forward, out hit, maxGrappleDistance, whatIsGrappleable)) //if an object which is grappleable and within distance is hit
+        {
+            return true; //player can grapple
+        }
+        else //else if a grapple-able object is not in distance or aimed at
+        {
+            return false; //player cannot grapple
+        }
+    }
+
     private void StartGrapple()
     {
         StopSwing(); //stop a current swing
@@ -105,6 +126,7 @@ public class Grappling : MonoBehaviour
             return; //return as user cannot grapple
         }
 
+        pm.grappling = true; //set grappling to true in PlayerMovement class
         grappling = true; //grappling is true
         //pm.freeze = true; //freeze player
 
@@ -147,6 +169,7 @@ public class Grappling : MonoBehaviour
     {
         //pm.freeze = false; //player not frozen
 
+        pm.grappling = false; //set bool to false in PlayerMovement class
         grappling = false; //user not grappling
 
         grapplingCdTimer = grapplingCd; //cooldown timer set to grapplingCd
