@@ -10,6 +10,8 @@ public class PlayerMovement : MonoBehaviour
     public float sprintSpeed;
     public float slideSpeed;
     public float wallRunSpeed;
+    public float grappleSpeed; //max speed of grappling
+    public float swingSpeed; //max speed of swinging
 
     private float desiredMoveSpeed;
     private float lastDesiredMoveSpeed;
@@ -65,6 +67,8 @@ public class PlayerMovement : MonoBehaviour
         wallrunning,
         crouching,
         sliding,
+        grappling,
+        swinging,
         inAir
     }
 
@@ -72,6 +76,8 @@ public class PlayerMovement : MonoBehaviour
     public bool activeGrapple; //active grapple bool
     public bool sliding;
     public bool wallRunning; // Wall running bool
+    public bool grappling; //is player grappling or not
+    public bool swinging; //is player swinging or not
 
     // Start is called before the first frame update
     void Start()
@@ -182,6 +188,18 @@ public class PlayerMovement : MonoBehaviour
             desiredMoveSpeed = walkSpeed;
         }
 
+        else if (grappling) //else if the player is grappling
+        {
+            playerState = MovementState.grappling; //set player state to grappling
+            desiredMoveSpeed = grappleSpeed; //set max speed to the grapple speed
+        }
+
+        else if (swinging) //else if the player is swinging
+        {
+            playerState = MovementState.swinging; //set player state to swinging
+            desiredMoveSpeed = swingSpeed; //set max speed to the swing speed
+        }
+
         else
         {
             playerState = MovementState.inAir;
@@ -218,6 +236,11 @@ public class PlayerMovement : MonoBehaviour
     void MovePlayer()
     {
         if (activeGrapple) //if player is actively grappling
+        {
+            return; //return with no movement
+        }
+
+        if (swinging) //if player is swinging
         {
             return; //return with no movement
         }
