@@ -2452,7 +2452,7 @@ MonoBehaviour:
   whatIsPlayer:
     serializedVersion: 2
     m_Bits: 256
-  timeBetweenAttacks: 0.5
+  timeBetweenAttacks: 1
   attackRange: 20
   playerInAttackRange: 0
   enemyHealth: 100
