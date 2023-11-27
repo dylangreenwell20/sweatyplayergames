@@ -2034,6 +2034,8 @@ MonoBehaviour:
   enemyDamage: 10
   isDead: 0
   bulletPrefab: {fileID: 6377248366256390956, guid: 0bfff7ce3760e074cb1521c3bc4d5fcc, type: 3}
+  bulletSpeed: 50
+  bulletDuration: 0
 --- !u!1 &368737441
 GameObject:
   m_ObjectHideFlags: 0
@@ -2683,6 +2685,8 @@ MonoBehaviour:
   enemyDamage: 10
   isDead: 0
   bulletPrefab: {fileID: 6377248366256390956, guid: 0bfff7ce3760e074cb1521c3bc4d5fcc, type: 3}
+  bulletSpeed: 0
+  bulletDuration: 0
 --- !u!136 &475554354
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -2906,6 +2910,8 @@ MonoBehaviour:
   enemyDamage: 10
   isDead: 0
   bulletPrefab: {fileID: 6377248366256390956, guid: 0bfff7ce3760e074cb1521c3bc4d5fcc, type: 3}
+  bulletSpeed: 0
+  bulletDuration: 0
 --- !u!136 &506371839
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -10278,6 +10284,8 @@ MonoBehaviour:
   enemyDamage: 10
   isDead: 0
   bulletPrefab: {fileID: 6377248366256390956, guid: 0bfff7ce3760e074cb1521c3bc4d5fcc, type: 3}
+  bulletSpeed: 0
+  bulletDuration: 0
 --- !u!136 &1955391061
 CapsuleCollider:
   m_ObjectHideFlags: 0

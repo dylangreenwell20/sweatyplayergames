@@ -32,6 +32,9 @@ public class ProjectileMotion : MonoBehaviour
         // Dealing damage when required
         DamageHandler damageHandler = other.gameObject.GetComponent<DamageHandler>();
         if (damageHandler) { damageHandler.DealDamage(damage); }
+
+        // Deleting object when dealing damage
+        Destroy(gameObject);
     }
 
     public void DeleteBullet()

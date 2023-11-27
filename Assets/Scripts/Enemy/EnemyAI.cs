@@ -25,7 +25,10 @@ public class EnemyAI : MonoBehaviour
     public float enemyDamage = 10;
     public bool isDead;
 
+    [Header("Attacking")]
     public GameObject bulletPrefab;
+    public float bulletSpeed;
+    public float bulletDuration;
 
     private void Awake()
     {
@@ -106,8 +109,8 @@ public class EnemyAI : MonoBehaviour
         {
             //attack code goes here --------------------------------------------------------------------------------------------------------------------------------------------------------------------
             GameObject tempBullet = Instantiate(bulletPrefab);
-            tempBullet.GetComponent<ProjectileMotion>().Create(transform, (player.position - transform.position).normalized, 200, 10, 1);
-
+            tempBullet.GetComponent<ProjectileMotion>().Create(transform, (player.position - transform.position).normalized, bulletSpeed, enemyDamage, 1);
+            Physics.IgnoreCollision(GetComponent<Collider>(), tempBullet.GetComponent<Collider>());
 
 
             hasAttacked = true; //enemy has attacked so set boolean to true
