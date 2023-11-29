@@ -35,7 +35,7 @@ public class EnemyAI : MonoBehaviour
 
     private void Awake()
     {
-        
+        //healthBar = gameObject.GetComponent<EnemyHealthBar>(); //get EnemyHealthBar component - did not work as UI script is not on enemy
         enemyHealth = maxEnemyHealth; // Setting the max health assigned
         healthBar.updateHealth(enemyHealth, maxEnemyHealth); // Resetting the health bar on load
 
@@ -65,47 +65,6 @@ public class EnemyAI : MonoBehaviour
             //Debug.Log("in attack range");
         }
     }
-
-    /*
-    private void Patroling()
-    {
-        if (!walkPointSet) //if no walk point has been set
-        {
-            SearchWalkPoint(); //search for a walk point
-        }
-
-        if (walkPointSet) //if a walk point has been set
-        {
-            nma.SetDestination(walkPoint); //move enemy to the walk point
-        }
-
-        Vector3 distanceToWalkPoint = transform.position - walkPoint; //new variable to calculate distance to walk point
-
-        if (distanceToWalkPoint.magnitude < 0.1f) //if enemy is less than 1 unit away from the walk point (basically if the enemy has reached the walk point)
-        {
-            walkPointSet = false; //walk point set is false
-        }
-    }
-    
-
-    private void SearchWalkPoint()
-    {
-        float randomX = Random.Range(-walkPointRange, walkPointRange); //gets a random value for X
-        float randomZ = Random.Range(-walkPointRange, walkPointRange); //gets a random value for Z
-        walkPoint = new Vector3(transform.position.x + randomX, transform.position.z + randomZ); //create walk point with the random X and Z values
-
-        if(Physics.Raycast(walkPoint, -transform.up, 2f, whatIsGround)) //if random walk point is on the level
-        {
-            walkPointSet = true; //set walk point to true
-        }
-    }
-
-    private void ChasePlayer()
-    {
-        nma.SetDestination(player.position); //set destination to the player transform
-    }
-
-    */
 
     private void AttackPlayer()
     {

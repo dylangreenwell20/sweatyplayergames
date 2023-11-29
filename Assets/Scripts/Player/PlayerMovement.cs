@@ -57,6 +57,12 @@ public class PlayerMovement : MonoBehaviour
     public bool isOnExit; //if player is on exit
     public DemoTimer dt; //reference to demo timer script
 
+    public Transform player; //reference to player
+    public Transform destination; //reference to level start destination
+
+    public LayerMask whatIsReset; //layer which is touched when a player falls on a course section and needs to be teleported back up
+    public bool isOnReset; //if player is on a reset barrier or not
+
 
     public MovementState playerState;
     public enum MovementState
@@ -79,6 +85,11 @@ public class PlayerMovement : MonoBehaviour
     public bool grappling; //is player grappling or not
     public bool swinging; //is player swinging or not
 
+    private void Awake()
+    {
+        player.position = destination.position; //set player destination to level start position
+    }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -91,8 +102,9 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        isGrounded = Physics.Raycast(transform.position, Vector3.down, playerHeight * 0.5f + 0.1f, whatIsGround);
-        isOnExit = Physics.Raycast(transform.position, Vector3.down, playerHeight * 0.5f + 0.1f, whatIsExit);
+        isGrounded = Physics.Raycast(transform.position, Vector3.down, playerHeight * 0.5f + 0.1f, whatIsGround); //check if player is on the ground layer
+        isOnExit = Physics.Raycast(transform.position, Vector3.down, playerHeight * 0.5f + 0.1f, whatIsExit); //check if player is on the exit layer
+        isOnReset = Physics.Raycast(transform.position, Vector3.down, playerHeight * 0.5f + 0.1f, whatIsReset); //check if player is on the reset layer
 
         GetInputs();
         SpeedControl();
@@ -110,7 +122,7 @@ public class PlayerMovement : MonoBehaviour
         if (isOnExit) //if player is touching the exit
         {
             dt.ExitTouched(); //this function sets the exitReached boolean to true which stops the timer
-        }
+        }     
     }
 
     void FixedUpdate()
@@ -335,6 +347,14 @@ public class PlayerMovement : MonoBehaviour
             ResetRestrictions(); //run reset restrictions function
 
             GetComponent<Grappling>().StopGrapple(); //stop grapple
+            return;
+        }
+
+        if(isOnReset) //if player is on a reset layer
+        {
+            collision.gameObject.GetComponent<ResetTeleport>().teleportPlayer(); //teleport player to assigned checkpoint
+            isOnReset = false;
+            return;
         }
     }
 
