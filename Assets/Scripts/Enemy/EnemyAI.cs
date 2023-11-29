@@ -10,6 +10,8 @@ public class EnemyAI : MonoBehaviour
     public LayerMask whatIsGround; //layer for what is the ground
     public LayerMask whatIsPlayer; //layer for what is the player
 
+    public EnemyHealthBar healthBar; // Script that manages health
+
     //public Vector3 walkPoint; //variable for place the AI will walk to
     //public float walkPointRange; //range the AI can walk
     //bool walkPointSet; //is a walk point set
@@ -21,17 +23,22 @@ public class EnemyAI : MonoBehaviour
     //public bool playerInSightRange; //is player in sight range
     public bool playerInAttackRange; //is player in attack range
 
-    public float enemyHealth = 100;
+    public float maxEnemyHealth = 100;
+    private float enemyHealth;
     public float enemyDamage = 10;
     public bool isDead;
 
     [Header("Attacking")]
-    public GameObject bulletPrefab;
+    public GameObject bulletPrefab; // The bullet prefab to load when shooting
     public float bulletSpeed;
     public float bulletDuration;
 
     private void Awake()
     {
+        
+        enemyHealth = maxEnemyHealth; // Setting the max health assigned
+        healthBar.updateHealth(enemyHealth, maxEnemyHealth); // Resetting the health bar on load
+
         player = GameObject.Find("PlayerModel").transform;
         //nma = GetComponent<NavMeshAgent>();
     }
@@ -126,12 +133,14 @@ public class EnemyAI : MonoBehaviour
     public void TakeDamage(float damage)
     {
         enemyHealth -= damage;
+        healthBar.updateHealth(enemyHealth, maxEnemyHealth);
 
         if(enemyHealth <= 0)
         {
             isDead = true;
             enemyHealth = 0;
             gameObject.SetActive(false);
+            healthBar.gameObject.SetActive(false); // Hide health bar
         }
     }
 }
