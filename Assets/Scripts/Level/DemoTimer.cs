@@ -16,7 +16,7 @@ public class DemoTimer : MonoBehaviour
             time += Time.deltaTime; //increase time
             UpdateTimer(time); //update the timer text
         }
-        else
+        else //else if exit has been reached
         {
             Debug.Log("exit reached"); //for testing to see if exit has been reached
         }

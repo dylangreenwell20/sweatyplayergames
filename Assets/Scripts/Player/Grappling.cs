@@ -74,7 +74,12 @@ public class Grappling : MonoBehaviour
 
         if(Input.GetKeyDown(swingKey)) //if swing key pressed down
         {
-            StartSwing(); //start swing function
+            bool swingCheck = CanGrapple(); //check if player has an object to swing from
+
+            if(swingCheck) //if they can swing
+            {
+                StartSwing(); //start swing function
+            }
         }
 
         if(Input.GetKeyUp(swingKey)) //if swing key released
