@@ -16,11 +16,12 @@ public class PauseMenu : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Tab))
         {
-            PostProcessVolume ppVolume = playerCamera.GetComponent<PostProcessVolume>();
-            ppVolume.enabled = !ppVolume.enabled;
+            //PostProcessVolume ppVolume = playerCamera.GetComponent<PostProcessVolume>();
+            //ppVolume.enabled = !ppVolume.enabled;
 
             if(gamePausing)
             {
+
                 Resume();
             }
 
@@ -31,15 +32,23 @@ public class PauseMenu : MonoBehaviour
         }
     }
 
-    void Resume()
+    public void Resume()
     {
+        PostProcessVolume ppVolume = playerCamera.GetComponent<PostProcessVolume>();
+        ppVolume.enabled = !ppVolume.enabled;
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
         pauseMenuUI.SetActive(false);
         Time.timeScale = 1.0f;
         gamePausing = false;
     }
 
-    void Pause()
+    public void Pause()
     {
+        PostProcessVolume ppVolume = playerCamera.GetComponent<PostProcessVolume>();
+        ppVolume.enabled = !ppVolume.enabled;
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
         pauseMenuUI.SetActive(true);
         Time.timeScale = 0f;
         gamePausing = true;
@@ -47,6 +56,8 @@ public class PauseMenu : MonoBehaviour
 
     public void ReturnToMenu()
     {
-        SceneManager.LoadScene("MainMenu");
+        Time.timeScale = 1.0f;
+        gamePausing = false;
+        SceneManager.LoadScene("Main Menu");
     }
 }
