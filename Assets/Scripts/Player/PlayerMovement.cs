@@ -122,7 +122,7 @@ public class PlayerMovement : MonoBehaviour
         if (isOnExit) //if player is touching the exit
         {
             dt.ExitTouched(); //this function sets the exitReached boolean to true which stops the timer
-        }     
+        }
     }
 
     void FixedUpdate()
@@ -350,7 +350,7 @@ public class PlayerMovement : MonoBehaviour
             return;
         }
 
-        if(isOnReset) //if player is on a reset layer
+        if (isOnReset) //if player is on a reset layer
         {
             collision.gameObject.GetComponent<ResetTeleport>().teleportPlayer(); //teleport player to assigned checkpoint
             isOnReset = false;
