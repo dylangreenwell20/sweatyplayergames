@@ -33,6 +33,8 @@ public class EnemyAI : MonoBehaviour
     public float bulletSpeed;
     public float bulletDuration;
 
+    private Animator attackAnimator; // The animator which handles attack animations
+
     private void Awake()
     {
         //healthBar = gameObject.GetComponent<EnemyHealthBar>(); //get EnemyHealthBar component - did not work as UI script is not on enemy
@@ -40,6 +42,8 @@ public class EnemyAI : MonoBehaviour
         healthBar.updateHealth(enemyHealth, maxEnemyHealth); // Resetting the health bar on load
 
         player = GameObject.Find("PlayerModel").transform;
+        attackAnimator = GetComponentInChildren<Animator>(true);
+        Debug.Log(attackAnimator);
         //nma = GetComponent<NavMeshAgent>();
     }
 
@@ -50,6 +54,7 @@ public class EnemyAI : MonoBehaviour
 
         if(!playerInAttackRange) //if player is not in sight or attack range
         {
+            attackAnimator.SetBool("IsAggro", false);
             //Patroling(); //patrol the area around the enemy
             //Debug.Log("not in attack range");
         }
@@ -61,6 +66,7 @@ public class EnemyAI : MonoBehaviour
         */
         else if(playerInAttackRange) //if the player is in sight range and also in attack range
         {
+            attackAnimator.SetBool("IsAggro", true);
             AttackPlayer(); //attack the player
             //Debug.Log("in attack range");
         }
@@ -78,6 +84,7 @@ public class EnemyAI : MonoBehaviour
             tempBullet.GetComponent<ProjectileMotion>().Create(transform, (player.position - transform.position).normalized, bulletSpeed, enemyDamage, 1);
             Physics.IgnoreCollision(GetComponent<Collider>(), tempBullet.GetComponent<Collider>());
 
+            attackAnimator.SetTrigger("Shoot");
 
             hasAttacked = true; //enemy has attacked so set boolean to true
             Invoke(nameof(ResetAttack), timeBetweenAttacks); //call the reset attack function after a cooldown
