@@ -85,6 +85,8 @@ public class PlayerMovement : MonoBehaviour
     public bool grappling; //is player grappling or not
     public bool swinging; //is player swinging or not
 
+    public bool isMoving; //is player moving or not
+
     private void Awake()
     {
         player.position = destination.position; //set player destination to level start position
@@ -109,6 +111,17 @@ public class PlayerMovement : MonoBehaviour
         GetInputs();
         SpeedControl();
         StateHandler();
+
+        float speedCheck = rb.velocity.magnitude; //check the speed of the player
+
+        if(speedCheck <= 0.5f) //if player moving slower than 0.5f velocity
+        {
+            isMoving = false; //player not moving
+        }
+        else //else if player moving more than 0.5f velocity
+        {
+            isMoving = true; //player is moving
+        }
 
         if (isGrounded && !activeGrapple) //if player is on the ground and not currently grappling
         {
@@ -163,6 +176,8 @@ public class PlayerMovement : MonoBehaviour
         {
             playerState = MovementState.wallrunning;
             desiredMoveSpeed = wallRunSpeed;
+
+            //wall running audio here
         }
 
         if (freeze) //if user is frozen
@@ -180,24 +195,37 @@ public class PlayerMovement : MonoBehaviour
 
             else
                 desiredMoveSpeed = sprintSpeed;
+
+            //slide audio here
         }
 
         else if (Input.GetKey(crouchKey))
         {
             playerState = MovementState.crouching;
             desiredMoveSpeed = crouchSpeed;
+            //crouch audio here
         }
 
         else if (isGrounded && Input.GetKey(sprintKey))
         {
             playerState = MovementState.sprinting;
             desiredMoveSpeed = sprintSpeed;
+
+            if(isMoving && !grappling && !swinging) //if player is moving but not grappling/swinging
+            {
+                FindObjectOfType<AudioManager>().Play("PlayerSprint"); //play player sprint audio
+            }
         }
 
         else if (isGrounded)
         {
             playerState = MovementState.walking;
             desiredMoveSpeed = walkSpeed;
+
+            if(isMoving && !grappling && !swinging) //if player is moving but not grappling/swinging
+            {
+                FindObjectOfType<AudioManager>().Play("PlayerWalk"); //play player walk audio
+            }
         }
 
         else if (grappling) //else if the player is grappling
@@ -264,7 +292,10 @@ public class PlayerMovement : MonoBehaviour
             rb.AddForce(GetSlopeMoveDir(moveDirection) * movementSpeed * 20f, ForceMode.Force);
 
             if (rb.velocity.y > 0)
+            {
                 rb.AddForce(Vector3.down * 80f, ForceMode.Force);
+            }
+                
         }
         if (isGrounded)
         {

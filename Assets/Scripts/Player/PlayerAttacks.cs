@@ -83,6 +83,8 @@ public class PlayerAttacks : MonoBehaviour
             // Hit enemies here
             Debug.Log("Fire");
 
+            FindObjectOfType<AudioManager>().PlayOverlap("PlayerShoot"); //play player shoot audio
+
             RaycastHit hit;
 
             if (Physics.Raycast(cam.position, cam.forward, out hit, weaponRange, toAttack)) //if raycast hits an attackable enemy within weapon range
