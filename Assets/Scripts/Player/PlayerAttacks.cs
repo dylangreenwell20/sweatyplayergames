@@ -25,9 +25,12 @@ public class PlayerAttacks : MonoBehaviour
 
     public EnemyAI enemyAI; //reference to enemy ai script
     public Transform cam; //reference to player camera
+    public GameObject muzzleFlash; //reference to muzzle flash particle system
+    public Animator recoil; //reference to animation controller that has recoil animation
 
     private void Start()
     {
+        muzzleFlash.SetActive(false);
         currentMag = magSize;
         fireTimer = 60 / weaponAttackRate;
     }
@@ -66,6 +69,12 @@ public class PlayerAttacks : MonoBehaviour
         ammoCounter.text = currentMag.ToString("D2") + " / " + magSize.ToString("D2");
     }
 
+    // Disable the flash of the muzzle
+    private void DisableMuzzleFlash() { 
+        muzzleFlash.SetActive(false);
+    }
+
+
     // Needs updating so not instant
     private void ReloadWeapon()
     {
@@ -78,6 +87,10 @@ public class PlayerAttacks : MonoBehaviour
         // Only firing when ammo > 0
         if (currentMag > 0)
         {
+            muzzleFlash.SetActive(true);
+            Invoke(nameof(DisableMuzzleFlash), 0.05f);
+            recoil.SetTrigger("Shoot");
+
             currentMag--;
 
             // Hit enemies here
