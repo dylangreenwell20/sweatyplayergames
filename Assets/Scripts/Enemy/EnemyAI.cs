@@ -49,21 +49,13 @@ public class EnemyAI : MonoBehaviour
 
     private void Update()
     {
-        //playerInSightRange = Physics.CheckSphere(transform.position, sightRange, whatIsPlayer); //check if player is in sight range
         playerInAttackRange = Physics.CheckSphere(transform.position, attackRange, whatIsPlayer); //check if player is in attack range
 
         if(!playerInAttackRange) //if player is not in sight or attack range
         {
             attackAnimator.SetBool("IsAggro", false);
-            //Patroling(); //patrol the area around the enemy
             //Debug.Log("not in attack range");
         }
-        /*
-        else if(playerInSightRange && !playerInAttackRange) //if player is in sight range but not attack range
-        {
-            ChasePlayer(); //chase the player
-        }
-        */
         else if(playerInAttackRange) //if the player is in sight range and also in attack range
         {
             attackAnimator.SetBool("IsAggro", true);
