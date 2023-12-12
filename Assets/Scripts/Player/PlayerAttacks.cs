@@ -69,6 +69,11 @@ public class PlayerAttacks : MonoBehaviour
         ammoCounter.text = currentMag.ToString("D2") + " / " + magSize.ToString("D2");
     }
 
+    public void ResetAmmo()
+    {
+        currentMag = magSize;
+    }
+
     // Disable the flash of the muzzle
     private void DisableMuzzleFlash() { 
         muzzleFlash.SetActive(false);
@@ -78,7 +83,9 @@ public class PlayerAttacks : MonoBehaviour
     // Needs updating so not instant
     private void ReloadWeapon()
     {
-        currentMag = magSize;
+        currentMag = 0;
+        recoil.SetTrigger("Reload"); // Start reload animation
+        
     }
 
     // Code that actually fires the weapon
