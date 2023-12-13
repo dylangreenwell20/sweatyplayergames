@@ -35,6 +35,8 @@ public class EnemyAI : MonoBehaviour
 
     private Animator attackAnimator; // The animator which handles attack animations
 
+    public AudioSource attackSound; //reference to attack sound
+
     private void Awake()
     {
         //healthBar = gameObject.GetComponent<EnemyHealthBar>(); //get EnemyHealthBar component - did not work as UI script is not on enemy
@@ -77,6 +79,8 @@ public class EnemyAI : MonoBehaviour
             Physics.IgnoreCollision(GetComponent<Collider>(), tempBullet.GetComponent<Collider>());
 
             attackAnimator.SetTrigger("Shoot");
+
+            attackSound.Play(); //play attack sound
 
             hasAttacked = true; //enemy has attacked so set boolean to true
             Invoke(nameof(ResetAttack), timeBetweenAttacks); //call the reset attack function after a cooldown

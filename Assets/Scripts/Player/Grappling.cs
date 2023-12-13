@@ -39,8 +39,8 @@ public class Grappling : MonoBehaviour
     private float grapplingCdTimer; //timer of cooldown
 
     [Header("Input")]
-    public KeyCode grappleKey = KeyCode.Mouse1; //key to grapple
-    public KeyCode swingKey = KeyCode.Mouse2; //key to swing
+    //public KeyCode grappleKey = KeyCode.Mouse2; //key to grapple
+    public KeyCode swingKey = KeyCode.Mouse1; //key to swing
 
     public bool grappling; //bool if user is grappling
     public bool cdActive; //bool if there is currently a grapple cooldown active
@@ -53,6 +53,7 @@ public class Grappling : MonoBehaviour
 
     private void Update()
     {
+        /*
         if (Input.GetKeyDown(grappleKey)) //if grapple key pressed
         {
             if(grappling == false)
@@ -60,6 +61,7 @@ public class Grappling : MonoBehaviour
                 StartGrapple(); //start grapple
             }
         }
+        */
 
         if(grapplingCdTimer > 0) //is cooldown greater than 0
         {
@@ -182,7 +184,7 @@ public class Grappling : MonoBehaviour
         lr.enabled = false; //disable line renderer
     }
 
-    private void StartSwing()
+    public void StartSwing()
     {
         StopGrapple(); //stop any current grapple
         pm.ResetRestrictions(); //reset any current movement restrictions
@@ -213,7 +215,7 @@ public class Grappling : MonoBehaviour
         }
     }
 
-    private void StopSwing()
+    public void StopSwing()
     {
         pm.swinging = false; //set swinging to false in PlayerMovement class
 
