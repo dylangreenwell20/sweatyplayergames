@@ -63,6 +63,8 @@ public class PlayerMovement : MonoBehaviour
     public LayerMask whatIsReset; //layer which is touched when a player falls on a course section and needs to be teleported back up
     public bool isOnReset; //if player is on a reset barrier or not
 
+    public Grappling grappleScript; //reference to grapple script
+
 
     public MovementState playerState;
     public enum MovementState
@@ -111,6 +113,11 @@ public class PlayerMovement : MonoBehaviour
         GetInputs();
         SpeedControl();
         StateHandler();
+
+        if(isOnReset) //if player is on reset
+        {
+            grappleScript.StopSwing(); //stop swing
+        }
 
         float speedCheck = rb.velocity.magnitude; //check the speed of the player
 

@@ -83,6 +83,13 @@ public class PlayerAttacks : MonoBehaviour
     // Needs updating so not instant
     private void ReloadWeapon()
     {
+        int ammoLeft = getMag(); //get ammo left
+
+        if(ammoLeft == magSize) //if ammo left is equal to mag size (essentially if at full ammo)
+        {
+            return; //return function as the user does not need to reload
+        }
+
         currentMag = 0;
         recoil.SetTrigger("Reload"); // Start reload animation
         
