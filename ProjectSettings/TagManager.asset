@@ -3,7 +3,11 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - FxTemporaire
+  - DeadZone
+  - DeadZone2
+  - DeadZone3
   layers:
   - Default
   - TransparentFX
