@@ -912,7 +912,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 90fe0a1cee6159147a67ef6188c2fe3c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  respawnPoint: {fileID: 1964861389}
+  respawnPoint: {fileID: 397301179}
   respawnPoint2: {fileID: 1964861389}
   respawnPoint3: {fileID: 1383186170}
   player: {fileID: 23559144}
