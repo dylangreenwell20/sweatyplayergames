@@ -13,6 +13,7 @@ public class RespawnPlayer : MonoBehaviour
     public GameObject deadMenu;
     public GameObject playerCamera;
     public GameObject effectHolder;
+    public SpawnEnemy enemyScript;
 
     PostProcessVolume volume;
     Vignette vignette;
@@ -41,19 +42,21 @@ public class RespawnPlayer : MonoBehaviour
         {
             Debug.Log("Player enter");
             player.transform.position = respawnPoint.transform.position;
-            //DeathMenu();
+            enemyScript.spawnEnemy1();
         }
 
         if (col.gameObject.CompareTag("DeadZone2"))
         {
             Debug.Log("Player enter");
             player.transform.position = respawnPoint2.transform.position;
+            enemyScript.spawnEnemy2();
         }
 
         if (col.gameObject.CompareTag("DeadZone3"))
         {
             Debug.Log("Player enter");
             player.transform.position = respawnPoint3.transform.position;
+            enemyScript.spawnEnemy3();
         }
 
         if (col.gameObject.CompareTag("ToLevel2"))
