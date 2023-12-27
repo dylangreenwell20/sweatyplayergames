@@ -9,6 +9,7 @@ public class EnemyAI : MonoBehaviour
     public Transform player; //player object (for enemy to attack)
     public LayerMask whatIsGround; //layer for what is the ground
     public LayerMask whatIsPlayer; //layer for what is the player
+    public LayerMask nonVisionBlocking; //layer for what this object can "see" through
 
     public EnemyHealthBar healthBar; // Script that manages health
 
@@ -73,17 +74,28 @@ public class EnemyAI : MonoBehaviour
 
         if (!hasAttacked)
         {
+            Debug.DrawLine(transform.position, player.position);
+            RaycastHit visionHit;
             //attack code goes here --------------------------------------------------------------------------------------------------------------------------------------------------------------------
-            GameObject tempBullet = Instantiate(bulletPrefab);
-            tempBullet.GetComponent<ProjectileMotion>().Create(transform, (player.position - transform.position).normalized, bulletSpeed, enemyDamage, 1);
-            Physics.IgnoreCollision(GetComponent<Collider>(), tempBullet.GetComponent<Collider>());
+            if (Physics.Linecast(transform.position, player.position, out visionHit, nonVisionBlocking)){
+                Debug.Log(visionHit.collider.gameObject);
+                Debug.Log(player);
+                if (visionHit.collider.gameObject == player.gameObject){
+                    GameObject tempBullet = Instantiate(bulletPrefab);
+                    tempBullet.GetComponent<ProjectileMotion>().Create(transform, (player.position - transform.position).normalized, bulletSpeed, enemyDamage, 1);
+                    Physics.IgnoreCollision(GetComponent<Collider>(), tempBullet.GetComponent<Collider>());
 
-            attackAnimator.SetTrigger("Shoot");
+                    attackAnimator.SetTrigger("Shoot");
 
-            attackSound.Play(); //play attack sound
+                    attackSound.Play(); //play attack sound
 
-            hasAttacked = true; //enemy has attacked so set boolean to true
-            Invoke(nameof(ResetAttack), timeBetweenAttacks); //call the reset attack function after a cooldown
+                    hasAttacked = true; //enemy has attacked so set boolean to true
+                    Invoke(nameof(ResetAttack), timeBetweenAttacks); //call the reset attack function after a cooldown
+                }
+                
+            }
+
+            
         }
     }
 

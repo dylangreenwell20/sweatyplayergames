@@ -9,6 +9,7 @@ public class RespawnPlayer : MonoBehaviour
     public GameObject respawnPoint;
     public GameObject respawnPoint2;
     public GameObject respawnPoint3;
+    public GameObject respawnPoint4;
     public GameObject player;
     public GameObject deadMenu;
     public GameObject playerCamera;
@@ -54,6 +55,12 @@ public class RespawnPlayer : MonoBehaviour
         {
             Debug.Log("Player enter");
             player.transform.position = respawnPoint3.transform.position;
+        }
+
+        if (col.gameObject.CompareTag("DeadZone4"))
+        {
+            Debug.Log("Player enter");
+            player.transform.position = respawnPoint4.transform.position;
         }
 
         if (col.gameObject.CompareTag("ToLevel2"))
