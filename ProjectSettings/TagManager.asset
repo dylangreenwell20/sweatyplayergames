@@ -10,6 +10,8 @@ TagManager:
   - DeadZone3
   - ToLevel2
   - ToLevel3
+  - DeadZone4
+  - ToLevel4
   layers:
   - Default
   - TransparentFX
