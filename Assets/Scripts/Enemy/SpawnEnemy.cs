@@ -16,10 +16,12 @@ public class SpawnEnemy : MonoBehaviour
     public GameObject[] spawnBoxArea1;
     public GameObject[] spawnBoxArea2;
     public GameObject[] spawnBoxArea3;
+    public GameObject[] spawnBoxArea4;
 
     public EnemyAI[] enemyArea1;
     public EnemyAI[] enemyArea2;
     public EnemyAI[] enemyArea3;
+    public EnemyAI[] enemyArea4;
 
     // Start is called before the first frame update
     void Start()
@@ -29,7 +31,7 @@ public class SpawnEnemy : MonoBehaviour
 
     // Update is called once per frame
 
-    public void spawnEnemy1()
+    public void SpawnEnemy1()
     {
         Debug.Log("Spawned");
 
@@ -42,7 +44,7 @@ public class SpawnEnemy : MonoBehaviour
         }
     }
 
-    public void spawnEnemy2()
+    public void SpawnEnemy2()
     {
         Debug.Log("Spawned");
 
@@ -55,7 +57,7 @@ public class SpawnEnemy : MonoBehaviour
         }
     }
 
-    public void spawnEnemy3()
+    public void SpawnEnemy3()
     {
         Debug.Log("Spawned");
         for (int i = 0; i < spawnBoxArea3.Length; i++)
@@ -63,6 +65,18 @@ public class SpawnEnemy : MonoBehaviour
             if (enemyArea3[i].isDead)
             {
                 Instantiate(enemyObj, spawnBoxArea3[i].transform.position, Quaternion.identity);
+            }
+        }
+    }
+
+    public void SpawnEnemy4()
+    {
+        Debug.Log("Spawned");
+        for (int i = 0; i < spawnBoxArea4.Length; i++)
+        {
+            if (enemyArea4[i].isDead)
+            {
+                Instantiate(enemyObj, spawnBoxArea4[i].transform.position, Quaternion.identity);
             }
         }
     }

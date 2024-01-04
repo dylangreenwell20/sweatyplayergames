@@ -43,27 +43,28 @@ public class RespawnPlayer : MonoBehaviour
         {
             Debug.Log("Player enter");
             player.transform.position = respawnPoint.transform.position;
-            enemyScript.spawnEnemy1();
+            enemyScript.SpawnEnemy1();
         }
 
         if (col.gameObject.CompareTag("DeadZone2"))
         {
             Debug.Log("Player enter");
             player.transform.position = respawnPoint2.transform.position;
-            enemyScript.spawnEnemy2();
+            enemyScript.SpawnEnemy2();
         }
 
         if (col.gameObject.CompareTag("DeadZone3"))
         {
             Debug.Log("Player enter");
             player.transform.position = respawnPoint3.transform.position;
-            enemyScript.spawnEnemy3();
+            enemyScript.SpawnEnemy3();
         }
 
         if (col.gameObject.CompareTag("DeadZone4"))
         {
             Debug.Log("Player enter");
             player.transform.position = respawnPoint4.transform.position;
+            enemyScript.SpawnEnemy4();
         }
 
         if (col.gameObject.CompareTag("ToLevel2"))
