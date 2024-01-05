@@ -72,6 +72,7 @@ public class RespawnPlayer : MonoBehaviour
         {
             Debug.Log("Player enter");
             player.transform.position = respawnPoint5.transform.position; //teleport player to specific location
+            enemyScript.SpawnEnemy5();
         }
 
         if (col.gameObject.CompareTag("ToLevel2"))
