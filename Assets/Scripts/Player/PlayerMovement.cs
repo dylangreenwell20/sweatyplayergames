@@ -101,6 +101,7 @@ public class PlayerMovement : MonoBehaviour
         rb.freezeRotation = true;
 
         startYScale = transform.localScale.y;
+        FindObjectOfType<AudioManager>().Play("BackgroundMusic"); //play background music
     }
 
     // Update is called once per frame

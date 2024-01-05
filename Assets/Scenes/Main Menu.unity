@@ -2700,7 +2700,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: OPTION
+  m_text: OPTIONS
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: bf91d9cc4cb87834596b1d44fbc04291, type: 2}
   m_sharedMaterial: {fileID: -6642592725165572101, guid: bf91d9cc4cb87834596b1d44fbc04291, type: 2}
@@ -2948,7 +2948,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: BGM
+  m_text: Music
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: bf91d9cc4cb87834596b1d44fbc04291, type: 2}
   m_sharedMaterial: {fileID: -6642592725165572101, guid: bf91d9cc4cb87834596b1d44fbc04291, type: 2}
@@ -2975,8 +2975,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 36
-  m_fontSizeBase: 36
+  m_fontSize: 30
+  m_fontSizeBase: 30
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -3120,7 +3120,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: OPTION
+  m_text: OPTIONS
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: bf91d9cc4cb87834596b1d44fbc04291, type: 2}
   m_sharedMaterial: {fileID: -6642592725165572101, guid: bf91d9cc4cb87834596b1d44fbc04291, type: 2}
