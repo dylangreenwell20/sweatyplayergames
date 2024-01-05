@@ -5,6 +5,10 @@ using UnityEngine.SceneManagement;
 
 public class MainMenu : MonoBehaviour
 {
+    public void Awake()
+    {
+        //FindObjectOfType<AudioManager>().Play("BackgroundMusic"); //play background music
+    }
 
     public void PlayGame()
     {

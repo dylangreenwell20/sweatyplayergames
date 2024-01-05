@@ -10,6 +10,7 @@ public class RespawnPlayer : MonoBehaviour
     public GameObject respawnPoint2;
     public GameObject respawnPoint3;
     public GameObject respawnPoint4;
+    public GameObject respawnPoint5; //respawn point for level 5
     public GameObject player;
     public GameObject deadMenu;
     public GameObject playerCamera;
@@ -63,6 +64,12 @@ public class RespawnPlayer : MonoBehaviour
             player.transform.position = respawnPoint4.transform.position;
         }
 
+        if (col.gameObject.CompareTag("DeadZone5")) //if collision tag is "DeadZone5"
+        {
+            Debug.Log("Player enter");
+            player.transform.position = respawnPoint5.transform.position; //teleport player to specific location
+        }
+
         if (col.gameObject.CompareTag("ToLevel2"))
         {
             Debug.Log("Player enter");
@@ -73,6 +80,18 @@ public class RespawnPlayer : MonoBehaviour
         {
             Debug.Log("Player enter");
             player.transform.position = respawnPoint3.transform.position;
+        }
+
+        if (col.gameObject.CompareTag("ToLevel4")) //if collision tag is "ToLevel4"
+        {
+            Debug.Log("Player enter");
+            player.transform.position = respawnPoint4.transform.position; //teleport player to specific location
+        }
+
+        if (col.gameObject.CompareTag("ToLevel5")) //if collision tag is "ToLevel5"
+        {
+            Debug.Log("Player enter");
+            player.transform.position = respawnPoint5.transform.position; //teleport player to specific location
         }
     }
 
